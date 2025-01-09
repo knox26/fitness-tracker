@@ -1,9 +1,10 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcrypt";
 import {
-  sendVerifyEmailOtpEmail,
+  sendVerifyEmailOtp,
   sendResetPasswordOtpEmail,
 } from "../utils/emailUtils.js";
+import { cookieOptions } from "../utils/constants.js";
 
 const userRegistration = async (req, res, next) => {
   try {
@@ -17,10 +18,10 @@ const userRegistration = async (req, res, next) => {
     const saltRounds = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     req.body.password = hashedPassword;
-    
+
     const user = await User.create(req.body);
     const otp = await user.createOtp();
-    await sendVerifyEmailOtpEmail(otp, email);
+    await sendVerifyEmailOtp(otp, email);
     res
       .status(201)
       .json({ message: "User registered successfully", success: true });
@@ -39,14 +40,21 @@ const verifyEmailOtp = async (req, res, next) => {
         .json({ message: "User not found", success: false });
     }
     const isVerified = await user.verifyOtp(otp);
+
     if (!isVerified) {
       return res.status(400).json({ message: "Invalid OTP", success: false });
     }
     user.isVerified = true;
     await user.save();
+    const token = await user.generateToken();
+    res.cookie("token", token, cookieOptions);
     res
       .status(200)
-      .json({ message: "OTP verified successfully", success: true });
+      .json({
+        message: "OTP verified successfully",
+        token: token,
+        success: true,
+      });
   } catch (error) {
     next(error);
   }
@@ -98,7 +106,6 @@ const verifyResetPasswordOtpAndRestPassword = async (req, res, next) => {
 const userLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    console.log("email:  ", email + " pass : ", password);
     const user = await User.findOne({ email });
     if (!user) {
       return res
@@ -106,17 +113,14 @@ const userLogin = async (req, res, next) => {
         .json({ message: "User not found", success: false });
     }
     const isValid = await user.comparePassword(password);
-    console.log("isValid: ", isValid);
     if (!isValid) {
       return res
         .status(401)
         .json({ message: "Incorrect password", success: false });
     }
-    const token = await user.generateToken(email, user);
-
-    res.status(200).json({ token, success: true });
-
-    // ...additional login logic...
+    const token = await user.generateToken();
+    res.cookie("token", token, cookieOptions);
+    res.status(200).json({ token, message: "Login successful", success: true });
   } catch (error) {
     next(error);
   }

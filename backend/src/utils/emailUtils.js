@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 
 //crate the email html template
 
-const sendVerifyEmailOtpEmail = async (otp, to) => {
+const sendVerifyEmailOtp = async (otp, to) => {
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,4 +174,4 @@ const sendResetPasswordOtpEmail = async (otp, to) => {
   await transporter.sendMail(mailOptions);
 };
 
-export { sendVerifyEmailOtpEmail, sendResetPasswordOtpEmail };
+export { sendVerifyEmailOtp, sendResetPasswordOtpEmail };

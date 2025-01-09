@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { jwtOptions } from "../utils/constants.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -73,8 +74,8 @@ userSchema.methods.comparePassword = async function (password) {
 };
 
 //generate jwt token
-userSchema.methods.generateToken = async function (email) {
-  return jwt.sign(email, process.env.JWT_KEY);
+userSchema.methods.generateToken = async function () {
+  return jwt.sign({ id: this._id }, process.env.JWT_KEY , jwtOptions);
 };
 
 //methods to create otp
