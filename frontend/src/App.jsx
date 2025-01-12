@@ -1,16 +1,14 @@
+import React from "react";
+import NavBar from "./projectcomponents/NavBar/NavBar";
 
-import './App.css'
+import "./App.css";
+import DashBoard from "./pages/DashBoard";
 
-function App() {
- 
 
+export default function App() {
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+       <DashBoard/>
     </>
   )
 }
-
-export default App
