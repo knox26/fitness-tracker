@@ -3,6 +3,7 @@ import React from "react";
 import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import Login from "./pages/LoginPage";
+import { Toaster } from "react-hot-toast";
 import Register from "./pages/Register";
 import FergotPassword from "./pages/FergotPassword";
 import VerifyOtpRegister from "./pages/VerifyOtpRegister";
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/" element={<DashBoard />} />
           </Routes>
         </div>
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </>
   );
