@@ -1,12 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useRef, useState } from "react";
 
-const OtpInput = ({
-  length = 4,
-  onOtpSubmit = (combinedOtp) => {
-    console.log(combinedOtp);
-  },
-}) => {
+const OtpInput = ({ length = 4, onOtpSubmit = () => {} }) => {
   const [otp, setOtp] = useState(new Array(length).fill(""));
   const inputRefs = useRef([]);
 
@@ -78,7 +73,10 @@ const OtpInput = ({
         <p>Enter your one-time password.</p>
       </div>
       <div className="w-full flex flex-col justify-center items-center">
-        <button className="bg-blue-500 text-white py-2 rounded-lg  duration-300 hover:bg-blue-800 font-medium px-4 mt-3">
+        <button
+          className="bg-blue-500 text-white py-2 rounded-lg  duration-300 hover:bg-blue-800 font-medium px-4 mt-3"
+          onClick={onOtpSubmit()}
+        >
           Verify otp
         </button>
       </div>
