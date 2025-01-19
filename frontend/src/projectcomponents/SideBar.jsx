@@ -24,7 +24,8 @@ const SideBar = () => {
   ];
 
   return (
-    <div>
+    <>
+    <div className="hidden  md:flex  w-16 md:w-56  ">
       {/* Sidebar for larger screens */}
       <nav className="fixed hidden  md:flex flex-col justify-between   top-0 left-0 h-screen w-16 md:w-48 bg-white text-neutral-800  mt-12 dark:bg-neutral-900 dark:text-white  z-30  ">
         {/* Navigation Links */}
@@ -63,19 +64,21 @@ const SideBar = () => {
         </div>
       </nav>
 
-      <div className=" fixed bottom-0 w-full  flex md:hidden items-center justify-between bg-white dark:bg-neutral-900 p-4 shadow-lg z-30">
-        {navItems.map((item) => (
-          <li key={item.href} className="list-none">
-            <a
-              href={item.href}
-              className="flex items-center justify-center gap-4 px-4 py-3 text-xl font-semibold rounded-lg hover:text-white hover:bg-neutral-700 transition-all duration-200 transform hover:scale-100 hover:shadow-xl"
-            >
-              <span className="text-xl">{item.icon}</span>
-            </a>
-          </li>
-        ))}
-      </div>
+      
     </div>
+    <div className=" fixed bottom-0 w-full  flex md:hidden items-center justify-between bg-white dark:bg-neutral-900 p-2 shadow-lg z-30">
+    {navItems.map((item) => (
+      <li key={item.href} className="list-none">
+        <a
+          href={item.href}
+          className="flex items-center justify-center gap-4 px-4 py-3 text-xl font-semibold rounded-lg hover:text-white hover:bg-neutral-700 transition-all duration-200 transform hover:scale-100 hover:shadow-xl"
+        >
+          <span className="text-xl">{item.icon}</span>
+        </a>
+      </li>
+    ))}
+  </div>
+  </>
   );
 };
 

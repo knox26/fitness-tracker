@@ -5,7 +5,7 @@ const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-30  w-full bg-white dark:bg-neutral-900 border-b border-neutral-200/20 dark:border-neutral-700 px-4 py-2 rounded-b-xl transition-all duration-300">
+    <header className="sticky top-0 z-30 bg-white w-full  dark:bg-neutral-900 border-b border-neutral-200/20 dark:border-neutral-700 px-4 py-2 rounded-b-xl transition-all duration-300">
       <div className="flex justify-between items-center">
         <h1 className="text-xl font-extrabold text-neutral-800 tracking-wide ml-5">
           FitTrack
