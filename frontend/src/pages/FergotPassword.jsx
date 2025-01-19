@@ -7,6 +7,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import OtpInput from "@/components/ui/otp";
 
 function FergotPassword() {
   const [formData, setFormData] = useState({
@@ -55,32 +56,12 @@ function FergotPassword() {
             </button>
           </form>
           <div className="space-y-2 flex flex-col items-center mt-5">
-            <InputOTP
-              maxLength={4}
-              value={value}
-              onChange={(value) => setValue(value)}
-              className= 'bg-white'
-            >
-              <InputOTPGroup className= "bg-white ">
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-              </InputOTPGroup>
-            </InputOTP>
-            <div className="text-center text-sm">
-              {value === "" ? (
-                <>Enter your one-time password.</>
-              ) : (
-                <>You entered: {value}</>
-              )}
+            
+            <div className="w-full">
+              <OtpInput length={4}/>
+               
+              
             </div>
-            <button
-              className="bg-blue-500 text-white py-2 rounded-lg  duration-300 hover:bg-blue-800 font-medium px-4"
-              type="submit"
-            >
-              Verify otp
-            </button>
           </div>
         </div>
         <div className="md:flex hidden w-1/2  items-center justify-center">
